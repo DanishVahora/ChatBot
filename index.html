@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDealer Pro - Premium Automotive Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff04" points="0,0 0,800 400,1000 1000,600 1000,0"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #3b82f6;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .car-showcase {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .car-silhouette {
+            width: 80%;
+            height: auto;
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 5%;
+            background: #f8fafc;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .feature-card p {
+            color: #64748b;
+        }
+
+        /* Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transform: scale(0) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .chatbot-window.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chatbot-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .chatbot-messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.bot {
+            background: #f1f5f9;
+            color: #334155;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chatbot-input-container {
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .chatbot-input:focus {
+            border-color: #3b82f6;
+        }
+
+        .chatbot-send {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .chatbot-send:hover {
+            background: #2563eb;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            background: #f1f5f9;
+            border-radius: 12px;
+            border-bottom-left-radius: 4px;
+            max-width: 80%;
+            align-self: flex-start;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: #64748b;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .chatbot-window {
+                width: 320px;
+                right: -10px;
+            }
+
+            .features {
+                padding: 3rem 5%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">AutoDealer Pro</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#inventory">Inventory</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Find Your <span class="highlight">Dream Car</span> Today</h1>
+                <p>Experience premium automotive excellence with our curated collection of luxury and performance vehicles. From financing to maintenance, we're your complete automotive partner.</p>
+                <div class="hero-buttons">
+                    <a href="#inventory" class="cta-button">Browse Inventory</a>
+                    <a href="#services" class="btn-secondary">Our Services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="car-showcase">
+                    <svg class="car-silhouette" viewBox="0 0 400 200" fill="none">
+                        <path d="M50 150 L80 120 L120 115 L160 110 L200 110 L240 115 L280 120 L320 130 L350 150 L320 160 L280 165 L240 170 L200 170 L160 170 L120 165 L80 160 Z" fill="url(#carGradient)" opacity="0.8"/>
+                        <circle cx="120" cy="165" r="15" fill="#1e293b"/>
+                        <circle cx="280" cy="165" r="15" fill="#1e293b"/>
+                        <path d="M90 120 L130 115 L170 112 L210 112 L250 115 L290 120 L270 100 L230 95 L170 95 L130 95 L110 100 Z" fill="url(#carGradient)" opacity="0.6"/>
+                        <defs>
+                            <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b82f6"/>
+                                <stop offset="100%" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="services">
+        <div class="features-container">
+            <h2 class="section-title">Why Choose AutoDealer Pro?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3>Premium Vehicle Selection</h3>
+                    <p>Curated collection of luxury and performance vehicles from top brands, all thoroughly inspected and certified for quality.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Flexible Financing</h3>
+                    <p>Competitive rates and flexible payment options tailored to your budget. Get pre-approved in minutes with our streamlined process.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Expert Service Center</h3>
+                    <p>Full-service maintenance and repair facility with certified technicians using genuine parts and latest diagnostic equipment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Extended Warranties</h3>
+                    <p>Comprehensive warranty packages to protect your investment and give you peace of mind for years to come.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Digital Experience</h3>
+                    <p>Seamless online browsing, virtual tours, and digital paperwork. Complete your purchase from the comfort of your home.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Customer Satisfaction</h3>
+                    <p>Award-winning customer service with 5-star ratings. Our team is dedicated to exceeding your expectations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" onclick="toggleChatbot()">💬</button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <span>🤖</span>
+                <h3>AutoDealer Assistant</h3>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    Hello! I'm your AutoDealer Pro assistant. I can help you with:
+                    <br><br>
+                    • Vehicle inventory and specifications
+                    <br>• Financing options and calculations
+                    <br>• Service appointments
+                    <br>• Trade-in valuations
+                    <br><br>
+                    What can I help you with today?
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span>Assistant is typing</span>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button class="chatbot-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chatbot functionality
+        let chatbotOpen = false;
+        const responses = {
+            greeting: [
+                "Hello! Welcome to AutoDealer Pro. How can I assist you today?",
+                "Hi there! I'm here to help you find your perfect vehicle. What are you looking for?",
+                "Welcome! I'm your automotive assistant. What can I help you with?"
+            ],
+            inventory: [
+                "We have over 200 premium vehicles in stock including luxury sedans, SUVs, trucks, and sports cars. Would you like to know about any specific brand or type?",
+                "Our current inventory includes BMW, Mercedes-Benz, Audi, Tesla, and many more. What type of vehicle interests you most?",
+                "We update our inventory daily with the latest models. Are you looking for new or certified pre-owned vehicles?"
+            ],
+            financing: [
+                "We offer competitive financing with rates as low as 2.9% APR. Our finance team can help you get pre-approved in minutes. Would you like to start the application?",
+                "Flexible financing options available including leasing, traditional auto loans, and trade-in opportunities. What's your preferred payment method?",
+                "Our finance specialists work with multiple lenders to get you the best rates. Do you have a specific budget in mind?"
+            ],
+            service: [
+                "Our service center is open Monday-Saturday with certified technicians. We offer maintenance, repairs, and warranty work. Would you like to schedule an appointment?",
+                "Full-service automotive care including oil changes, brake service, engine diagnostics, and more. What type of service do you need?",
+                "We service all makes and models with genuine parts and competitive pricing. When would you like to bring your vehicle in?"
+            ],
+            default: [
+                "I'd be happy to help! Could you provide more details about what you're looking for?",
+                "That's a great question! Let me connect you with our specialist who can provide detailed information.",
+                "I can help you with vehicle information, financing, or service appointments. What interests you most?"
+            ]
+        };
+
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            chatbotOpen = !chatbotOpen;
+            window.classList.toggle('active', chatbotOpen);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const messages = document.getElementById('chatbotMessages');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user';
+            userMessage.textContent = message;
+            messages.appendChild(userMessage);
+
+            // Clear input
+            input.value = '';
+
+            // Show typing indicator
+            const typingIndicator = document.getElementById('typingIndicator');
+            typingIndicator.style.display = 'flex';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Generate bot response
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.innerHTML = getBotResponse(message);
+                messages.appendChild(botMessage);
+                messages.scrollTop = messages.scrollHeight;
+            }, 1500);
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return getRandomResponse(responses.greeting);
+            } else if (lowerMessage.includes('car') || lowerMessage.includes('vehicle') || lowerMessage.includes('inventory') || lowerMessage.includes('stock')) {
+                return getRandomResponse(responses.inventory);
+            } else if (lowerMessage.includes('finance') || lowerMessage.includes('loan') || lowerMessage.includes('payment') || lowerMessage.includes('price')) {
+                return getRandomResponse(responses.financing);
+            } else if (lowerMessage.includes('service') || lowerMessage.includes('repair') || lowerMessage.includes('maintenance') || lowerMessage.includes('appointment')) {
+                return getRandomResponse(responses.service);
+            } else {
+                return getRandomResponse(responses.default);
+            }
+        }
+
+        function getRandomResponse(responseArray) {
+            return responseArray[Math.floor(Math.random() * responseArray.length)];
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 23, 42, 0.98)';
+            } else {
+                header.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
