@@ -117,8 +117,8 @@ npm test
 
 The project followed strict TDD principles:
 
-1. **Red** - Write a failing test
-2. **Green** - Make it pass with minimal code
+1. **Red(test)** - Write a failing test
+2. **Green(feat)** - Make it pass with minimal code
 3. **Refactor** - Improve the code without changing functionality
 
 Each step was committed after the full TDD cycle was complete, ensuring a clean and traceable development history.
