@@ -1,141 +1,149 @@
-# String Calculator TDD Kata
+# 🧮 String Calculator TDD Kata
 
 ![TDD Cycle](https://upload.wikimedia.org/wikipedia/commons/0/0b/TDD_Global_Lifecycle.png)
 
-A JavaScript implementation of the String Calculator TDD Kata, featuring custom delimiters, negative number handling, and comprehensive test coverage.
+## 📝 Description
 
-## 🎯 Project Overview
+A step-by-step implementation of the String Calculator TDD Kata, showcasing clean code, test-driven development, and iterative feature building. This project demonstrates how to build a feature-rich calculator that handles various input formats, custom delimiters, and edge cases - all through the Red-Green-Refactor cycle.
 
-This project demonstrates Test-Driven Development (TDD) principles through an iterative implementation of a string calculator that:
+## ✨ Features
 
-- Handles empty strings, single numbers, and multiple numbers
-- Supports various delimiters (commas, newlines, custom delimiters)
-- Validates input (throws exceptions for negative numbers)
-- Filters numbers (ignores values > 1000)
-- Processes complex delimiter configurations
+- **Flexible Input Handling** - Process empty strings, single numbers, or multiple numbers
+- **Multiple Delimiter Support** - Use commas, newlines, or custom delimiters
+- **Custom Delimiter Definition** - Simple or complex delimiter patterns
+- **Input Validation** - Exception handling for negative numbers  
+- **Smart Number Processing** - Ignores numbers greater than 1000
 
-## 📋 Requirements Implementation
+## 🚀 Implementation Steps
 
-The calculator was built iteratively using TDD's Red-Green-Refactor methodology:
+| Step | Description | Example |
+|------|-------------|---------|
+| 1️⃣ | Empty string returns zero | `Add("") → 0` |
+| 2️⃣ | Single number returns the number | `Add("1") → 1` |
+| 3️⃣ | Two numbers return their sum | `Add("1,2") → 3` |
+| 4️⃣ | Multiple numbers supported | `Add("1,2,3,4,5") → 15` |
+| 5️⃣ | New line as delimiter | `Add("1\n2,3") → 6` |
+| 6️⃣ | Custom delimiters | `Add("//;\n1;2") → 3` |
+| 7️⃣ | Negative numbers throw exception | `Add("1,-2") → throws "negatives not allowed: -2"` |
+| 8️⃣ | Ignore numbers > 1000 | `Add("2,1001") → 2` |
+| 9️⃣ | Multi-character delimiters | `Add("//[***]\n1***2***3") → 6` |
+| 🔟 | Multiple custom delimiters | `Add("//[*][%]\n1*2%3") → 6` |
 
-| Step | Requirement | Implementation Status |
-|------|-------------|----------------------|
-| 0 | Handle empty string input | ✅ |
-| 1 | Support single number or two numbers | ✅ |
-| 2 | Support multiple numbers | ✅ |
-| 3 | Allow new lines as delimiters | ✅ |
-| 4 | Support custom delimiters | ✅ |
-| 5 | Throw exceptions for negative numbers | ✅ |
-| 6 | Ignore numbers greater than 1000 | ✅ |
-| 7 | Support multi-character delimiters | ✅ |
-| 8-9 | Support multiple delimiters of any length | ✅ |
+## 📊 Test Showcase
 
-## 🧪 Test Cases
-
-The calculator supports numerous input formats and edge cases:
-
-### Basic Input
-
+### Basic Operations
 ```javascript
-Add('') // Returns 0
-Add('1') // Returns 1
-Add('1,2') // Returns 3
-Add('1,2,3,4,5') // Returns 15
+// Empty input
+expect(Add('')).toBe(0);
+
+// Single number
+expect(Add('1')).toBe(1);
+expect(Add('42')).toBe(42);
+
+// Multiple numbers
+expect(Add('1,2,3,4,5')).toBe(15);
 ```
 
-### Delimiters
-
+### Delimiter Variations
 ```javascript
-// New lines as delimiters
-Add('1\n2,3') // Returns 6
+// Newlines as delimiters
+expect(Add('1\n2,3')).toBe(6);
+expect(Add('4\n5\n6')).toBe(15);
 
-// Single-character custom delimiters
-Add('//;\n1;2') // Returns 3
-Add('//|\n4|5|6') // Returns 15
+// Custom single-character delimiters
+expect(Add('//;\n1;2')).toBe(3);
+expect(Add('//|\n4|5|6')).toBe(15);
 
-// Multi-character custom delimiter
-Add('//sep\n7sep8sep9') // Returns 24
-
-// Special custom delimiters
-Add('//-\n-1-2-3') // Returns 6
-Add('//a\n0a1a2a3') // Returns 6
-Add('// \n1 2 3') // Returns 6
+// Multi-character delimiters
+expect(Add('//sep\n7sep8sep9')).toBe(24);
 ```
 
-### Negative Numbers
-
+### Edge Cases & Special Handling
 ```javascript
-Add('1,-2,3') // Throws "negative numbers not allowed -2"
-Add('-1,-2,-3') // Throws "negative numbers not allowed -1,-2,-3"
+// Negative numbers
+expect(() => Add('1,-2,3')).toThrow('negative numbers not allowed -2');
+expect(() => Add('-1,-2,-3')).toThrow('negative numbers not allowed -1,-2,-3');
+
+// Ignoring large numbers
+expect(Add('2,1000')).toBe(1002);  // 1000 is included
+expect(Add('2,1001,3')).toBe(5);   // 1001 is ignored
+
+// Special delimiter characters
+expect(Add('//[.*]\n1.*2.*3')).toBe(6);  // Special regex chars
+expect(Add('//[123]\n11231123')).toBe(2); // Numbers as delimiters
+expect(Add('//[   ]\n1   2   3')).toBe(6); // Spaces as delimiters
 ```
 
-### Ignoring Numbers > 1000
-
+### Advanced Delimiter Configurations
 ```javascript
-Add('2,1000') // Returns 1002 (1000 is included)
-Add('2,1001,3') // Returns 5 (1001 is ignored)
+// Multiple delimiters of any length
+expect(Add('//[a][b][c]\n1a2b3c4')).toBe(10);
+expect(Add('//[***][%][#]\n1***2%3#4')).toBe(10);
+expect(Add('//[.][*][+]\n1.2*3+4')).toBe(10);
 ```
 
-### Advanced Delimiter Handling
+## 🧠 Technical Implementation
+
+### Modular Functions
+The solution is designed with clean, single-responsibility functions:
+
+- **`parseDelimiter`**: Extract and process custom delimiters
+- **`findNegatives`**: Detect negative numbers for validation
+- **`filterValidNumbers`**: Remove numbers > 1000
+- **`sumNumbers`**: Calculate the final result
+
+### Code Highlights
 
 ```javascript
-// Multi-character delimiters in brackets
-Add('//[***]\n1***2***3') // Returns 6
-Add('//[abc]\n4abc5abc6') // Returns 15
-
-// Multiple delimiters
-Add('//[*][%]\n1*2%3') // Returns 6
-Add('//[***][%][#]\n1***2%3#4') // Returns 10
-
-// Special characters as delimiters
-Add('//[.][*][+]\n1.2*3+4') // Returns 10
+// Multiple delimiters parsing logic
+if (input.startsWith('//[')) {
+    const delimiterBrackets = input.match(/\[(.*?)\]/g);
+    if (delimiterBrackets) {
+        const delimiters = delimiterBrackets.map(d => escapeRegex(removeBrackets(d)));
+        const delimiterRegex = new RegExp(delimiters.join('|'));
+        const delimiterSectionEnd = input.indexOf('\n') + 1;
+        return { delimiter: delimiterRegex, rest: input.slice(delimiterSectionEnd) };
+    }
+}
 ```
 
-## 🏗️ Architecture
+## 🔍 TDD Approach
 
-The solution follows a modular design with separate functions for:
+Each feature was developed following strict TDD principles:
 
-- **Delimiter parsing** - Handles standard and custom delimiters
-- **Negative number validation** - Detects negative inputs
-- **Number filtering** - Removes numbers > 1000
-- **Number processing** - Converts and sums valid numbers
+1. **🔴 RED**: Write a failing test that verifies the expected behavior
+2. **🟢 GREEN**: Implement the minimum code needed to make the test pass
+3. **🔄 REFACTOR**: Improve the code without changing its behavior
 
-## 🧠 Key Design Decisions
-
-1. **Regular Expressions**: Used for flexible delimiter parsing and pattern matching
-2. **Pure Functions**: Each function has a single responsibility with no side effects
-3. **Error Handling**: Clear error messages with all negative numbers listed
-4. **Defensive Coding**: Robust handling of edge cases
-
-## 🚀 Running the Tests
+## 📦 Getting Started
 
 ```bash
+# Clone the repository
+git clone [your-repo-url]
+
+# Install dependencies
+npm install
+
+# Run tests
 npm test
 ```
 
-## 📘 Development Steps
+## 📈 Commit History
 
-The project followed strict TDD principles:
+The project's commit history reflects the TDD journey:
 
-1. **Red(test)** - Write a failing test
-2. **Green(feat)** - Make it pass with minimal code
-3. **Refactor** - Improve the code without changing functionality
+- Step-by-step feature implementation
+- Test-first development approach
+- Regular refactoring for clean code
+- Edge case handling and bug fixes
 
-Each step was committed after the full TDD cycle was complete, ensuring a clean and traceable development history.
+## 📚 Learning Resources
 
-## 🔍 Edge Case Handling
+This kata is perfect for practicing:
 
-The calculator handles various edge cases including:
-- Empty strings
-- Empty delimiter brackets `//[]\n1,2,3`
-- Special regex characters as delimiters
-- Spaces and tabs as delimiters
-- Numbers within delimiters
-- Multi-character delimiters with special characters
-
-## 📚 Technologies Used
-
-- JavaScript
-- Jest (Testing Framework)
-- NPM (Package Manager)
-- Visual Studio Code
+- Test-Driven Development (TDD)
+- Clean Code principles
+- Refactoring techniques
+- String manipulation in JavaScript
+- Regular expressions
+- Modular code design
